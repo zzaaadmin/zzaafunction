@@ -28,7 +28,7 @@ namespace zzaafunction
 
             return name == null
                 ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body")
-                : req.CreateResponse(HttpStatusCode.OK, "Bye " + name + "!!! 1");
+                : req.CreateResponse(HttpStatusCode.OK, "Bye " + name + "!!! 2");
         }
     }
 }
