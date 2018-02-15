@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zzaafunction", "zzaafunction\zzaafunction.csproj", "{501B69FD-8D81-4E6A-9EAE-63D6ED11CBCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zzaafunction", "zzaafunction\zzaafunction.csproj", "{501B69FD-8D81-4E6A-9EAE-63D6ED11CBCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexaSkill", "AlexaSkill\AlexaSkill.csproj", "{A0416329-31B6-4B8E-82A9-FF5B493E68DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{501B69FD-8D81-4E6A-9EAE-63D6ED11CBCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{501B69FD-8D81-4E6A-9EAE-63D6ED11CBCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{501B69FD-8D81-4E6A-9EAE-63D6ED11CBCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0416329-31B6-4B8E-82A9-FF5B493E68DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0416329-31B6-4B8E-82A9-FF5B493E68DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0416329-31B6-4B8E-82A9-FF5B493E68DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0416329-31B6-4B8E-82A9-FF5B493E68DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
