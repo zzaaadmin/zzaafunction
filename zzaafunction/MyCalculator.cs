@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,26 +27,48 @@ namespace zzaafunction
 
                 return DefaultRequest(req);
             }
+            else if (data.request.type == "IntentRequest")
+            {
+                // Set name to query string or body data
+                string intentName = data.request.intent.name;
+                log.Info($"intentName={intentName}");
+                switch (intentName)
+                {
+                    case "AddIntent":
+                        var n1 = Convert.ToDouble(data.request.intent.slots["firstnum"].value);
+                        var n2 = Convert.ToDouble(data.request.intent.slots["secondnum"].value);
+                        double result = n1 + n2;
+                        string subject = result.ToString();
+                        return req.CreateResponse(HttpStatusCode.OK, new
+                        {
+                            version = "1.0",
+                            sessionAttributes = new { },
+                            response = new
+                            {
+                                outputSpeech = new
+                                {
+                                    type = "PlainText",
+                                    text = $"The result is {result.ToString()}."
+                                },
+                                card = new
+                                {
+                                    type = "Simple",
+                                    title = "Alexa-Azure Simple Calculator",
+                                    content = $"The result is {result.ToString()}."
+                                },
+                                shouldEndSession = true
+                            }
+                        });
+                    // Add more intents and default responses
+                    default:
+                        return DefaultRequest(req);
+                }
+            }
+
             else
             {
                 return DefaultRequest(req);
             }
-            //log.Info("C# HTTP trigger function processed a request.");
-
-            //// parse query parameter
-            //string name = req.GetQueryNameValuePairs()
-            //    .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
-            //    .Value;
-
-            //// Get request body
-            //dynamic data = await req.Content.ReadAsAsync<object>();
-
-            //// Set name to query string or body data
-            //name = name ?? data?.name;
-
-            //return name == null
-            //    ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body")
-            //    : req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
         }
 
         private static HttpResponseMessage DefaultRequest(HttpRequestMessage req)
