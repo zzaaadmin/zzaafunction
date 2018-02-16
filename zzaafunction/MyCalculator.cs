@@ -48,13 +48,13 @@ namespace zzaafunction
                                 outputSpeech = new
                                 {
                                     type = "PlainText",
-                                    text = $"The result is {result.ToString()}. Thank you!!!"
+                                    text = $"The result is {result.ToString()}. Thank you!!! Thanks Again!!!"
                                 },
                                 card = new
                                 {
                                     type = "Simple",
                                     title = "Alexa-Azure Simple Calculator",
-                                    content = $"The result is {result.ToString()}. Thank you!!!"
+                                    content = $"The result is {result.ToString()}. Thank you!!! Thanks Again!!!"
                                 },
                                 shouldEndSession = true
                             }
