@@ -1,7 +1,9 @@
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -39,7 +41,7 @@ namespace zzaafunction
 
 
 
-                        string capital = GetCapital(state);
+                        string capital = GetCapital(state, log);
 
                         string message = "";
 
@@ -86,9 +88,49 @@ namespace zzaafunction
 
         }
 
-        private static string GetCapital(string state)
+        private static string GetCapital(string state, TraceWriter log)
         {
-            return "Phoenix";
+            string output = "";
+
+            try
+            {
+
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "zzaasqlserver.database.windows.net";
+                builder.UserID = "zzaauid";
+                builder.Password = "ZZaapwd12345!";
+                builder.InitialCatalog = "zzaasqldemo";
+
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("SELECT sc.State, sc.Capital ");
+                    sb.Append("FROM [dbo].[StateCapital] sc ");
+                    sb.Append("Where sc.State = '");
+                    sb.Append(state);
+                    sb.Append("',");
+                    String sql = sb.ToString();
+                    log.Info($"Query={sql}");
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                output = reader.GetString(1);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                log.Info($"Exception={e.ToString()}");
+            }
+
+            return output;
         }
 
         private static HttpResponseMessage DefaultRequest(HttpRequestMessage req)
