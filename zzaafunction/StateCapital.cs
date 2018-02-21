@@ -39,7 +39,7 @@ namespace zzaafunction
                     case "FindIntent":
                         string state = (string) data.request.intent.slots["state"].value;
                         log.Info($"state={state}");
-                        string capital = GetCapital(state);
+                        string capital = GetCapital(state,log);
                         log.Info($"capital={capital}");
                         string message = "";
 
@@ -86,7 +86,7 @@ namespace zzaafunction
 
         }
 
-        private static string GetCapital(string state)
+        private static string GetCapital(string state, TraceWriter log)
         {
             string output = "";
 
@@ -94,7 +94,7 @@ namespace zzaafunction
 
             try
             {
-                //log.Info($"GetCapital=GetCapital");
+                log.Info($"GetCapital=GetCapital");
                 //SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 //builder.DataSource = "zzaasqlserver.database.windows.net";
                 //builder.UserID = "zzaauid";
@@ -104,6 +104,7 @@ namespace zzaafunction
                 //log.Info($"ConnectionString={builder.ConnectionString}");
 
                 string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString;
+                log.Info($"ConnectionString={connectionString}");
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -115,7 +116,7 @@ namespace zzaafunction
                     sb.Append(state);
                     sb.Append("';");
                     String sql = sb.ToString();
-                    //log.Info($"Query={sql}");
+                    log.Info($"Query={sql}");
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -129,10 +130,11 @@ namespace zzaafunction
                     }
                 }
             }
-            catch (SqlException e)
+            catch (SqlException ex)
             {
+                log.Error("Error Message", ex);
                 throw;
-                //log.Info($"Exception={e.Message.ToString()}");
+
             }
 
             return output;
