@@ -39,7 +39,7 @@ namespace zzaafunction
                     case "FindIntent":
                         var state = data.request.intent.slots["state"].value;
                         log.Info($"state={state}");
-                        string capital = GetCapital(state, log);
+                        string capital = GetCapital(state);
                         log.Info($"capital={capital}");
                         string message = "";
 
@@ -86,20 +86,22 @@ namespace zzaafunction
 
         }
 
-        private static string GetCapital(string state, TraceWriter log)
+        private static string GetCapital(string state)
         {
             string output = "";
 
+            //TraceWriter log = new 
+
             try
             {
-                log.Info($"GetCapital=GetCapital");
+                //log.Info($"GetCapital=GetCapital");
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.DataSource = "zzaasqlserver.database.windows.net";
                 builder.UserID = "zzaauid";
                 builder.Password = "ZZaapwd12345!";
                 builder.InitialCatalog = "zzaasqldemo";
 
-                log.Info($"ConnectionString={builder.ConnectionString}");
+                //log.Info($"ConnectionString={builder.ConnectionString}");
 
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
@@ -111,7 +113,7 @@ namespace zzaafunction
                     sb.Append(state);
                     sb.Append("',");
                     String sql = sb.ToString();
-                    log.Info($"Query={sql}");
+                    //log.Info($"Query={sql}");
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -127,7 +129,8 @@ namespace zzaafunction
             }
             catch (SqlException e)
             {
-                log.Info($"Exception={e.Message.ToString()}");
+                throw;
+                //log.Info($"Exception={e.Message.ToString()}");
             }
 
             return output;
