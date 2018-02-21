@@ -95,15 +95,17 @@ namespace zzaafunction
             try
             {
                 //log.Info($"GetCapital=GetCapital");
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "zzaasqlserver.database.windows.net";
-                builder.UserID = "zzaauid";
-                builder.Password = "ZZaapwd12345!";
-                builder.InitialCatalog = "zzaasqldemo";
+                //SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                //builder.DataSource = "zzaasqlserver.database.windows.net";
+                //builder.UserID = "zzaauid";
+                //builder.Password = "ZZaapwd12345!";
+                //builder.InitialCatalog = "zzaasqldemo";
 
                 //log.Info($"ConnectionString={builder.ConnectionString}");
 
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                string connectionString = "Server=tcp:zzaasqlserver.database.windows.net,1433;Initial Catalog=zzaasqldemo;Persist Security Info=False;User ID=zzaauid;Password=ZZaapwd12345!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; 
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     StringBuilder sb = new StringBuilder();
