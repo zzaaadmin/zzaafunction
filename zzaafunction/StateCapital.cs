@@ -37,7 +37,7 @@ namespace zzaafunction
                 switch (intentName)
                 {
                     case "FindIntent":
-                        var state = data.request.intent.slots["state"].value;
+                        string state = (string) data.request.intent.slots["state"].value;
                         log.Info($"state={state}");
                         string capital = GetCapital(state);
                         log.Info($"capital={capital}");
