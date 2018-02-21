@@ -103,7 +103,7 @@ namespace zzaafunction
 
                 //log.Info($"ConnectionString={builder.ConnectionString}");
 
-                string connectionString = "Server=tcp:zzaasqlserver.database.windows.net,1433;Initial Catalog=zzaasqldemo;Persist Security Info=False;User ID=zzaauid;Password=ZZaapwd12345!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; 
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString;
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
