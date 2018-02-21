@@ -111,7 +111,7 @@ namespace zzaafunction
                     sb.Append("FROM [dbo].[StateCapital] sc ");
                     sb.Append("Where sc.State = '");
                     sb.Append(state);
-                    sb.Append("',");
+                    sb.Append("';");
                     String sql = sb.ToString();
                     //log.Info($"Query={sql}");
 
