@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -35,7 +36,22 @@ namespace zzaafunction
                 {
                     case "FindIntent":
                         var state = data.request.intent.slots["state"].value;
-                        string capital = "Phoenix";
+
+
+
+                        string capital = GetCapital(state);
+
+                        string message = "";
+
+                        if (String.IsNullOrEmpty(capital))
+                        {
+                            message = $"The capital of {state} is not configured.";
+                        }
+                        else
+                        {
+                            message = $"The capital of {state} is {capital}.";
+                        }
+
 
                         return req.CreateResponse(HttpStatusCode.OK, new
                         {
@@ -46,13 +62,13 @@ namespace zzaafunction
                                 outputSpeech = new
                                 {
                                     type = "PlainText",
-                                    text = $"The capital of {state} is {capital}. Thank you!!! Thanks Again!!!"
+                                    text = message
                                 },
                                 card = new
                                 {
                                     type = "Simple",
                                     title = "Alexa-State capital skill",
-                                    content = $"The capital of {state} is {capital}. Thank you!!! Thanks Again!!!"
+                                    content = message
                                 },
                                 shouldEndSession = true
                             }
@@ -68,6 +84,11 @@ namespace zzaafunction
                 return DefaultRequest(req);
             }
 
+        }
+
+        private static string GetCapital(string state)
+        {
+            return "Phoenix";
         }
 
         private static HttpResponseMessage DefaultRequest(HttpRequestMessage req)
