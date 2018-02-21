@@ -38,11 +38,9 @@ namespace zzaafunction
                 {
                     case "FindIntent":
                         var state = data.request.intent.slots["state"].value;
-
-
-
+                        log.Info($"state={state}");
                         string capital = GetCapital(state, log);
-
+                        log.Info($"capital={capital}");
                         string message = "";
 
                         if (String.IsNullOrEmpty(capital))
