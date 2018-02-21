@@ -92,12 +92,14 @@ namespace zzaafunction
 
             try
             {
-
+                log.Info($"GetCapital=GetCapital");
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
                 builder.DataSource = "zzaasqlserver.database.windows.net";
                 builder.UserID = "zzaauid";
                 builder.Password = "ZZaapwd12345!";
                 builder.InitialCatalog = "zzaasqldemo";
+
+                log.Info($"ConnectionString={builder.ConnectionString}");
 
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
@@ -125,7 +127,7 @@ namespace zzaafunction
             }
             catch (SqlException e)
             {
-                log.Info($"Exception={e.ToString()}");
+                log.Info($"Exception={e.Message.ToString()}");
             }
 
             return output;
