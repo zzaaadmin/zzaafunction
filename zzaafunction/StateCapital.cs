@@ -33,7 +33,7 @@ namespace zzaafunction
                 log.Info($"intentName={intentName}");
                 switch (intentName)
                 {
-                    case "AddIntent":
+                    case "FindIntent":
                         var state = data.request.intent.slots["state"].value;
                         string capital = "Phoenix";
 
