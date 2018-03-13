@@ -24,6 +24,8 @@ namespace zzaafunction
             // Get request body
             var googleHomeRequest = await req.Content.ReadAsAsync<GoogleHomeRequest>();
 
+            log.Info($"");
+
             var googleHomeParameters = googleHomeRequest.Result.Parameters;
 
             var response = new Response();
@@ -41,7 +43,10 @@ namespace zzaafunction
                 response.Speech = $"Hello world!!!!";
 
 
-            return req.CreateResponse(HttpStatusCode.OK, response);
+            return req.CreateResponse(HttpStatusCode.OK, new {
+                speech = "Hello World",  // ASCII characters only
+                displayText = "Hello World"
+            });
         }
     }
 
