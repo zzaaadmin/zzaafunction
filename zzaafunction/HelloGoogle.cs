@@ -24,9 +24,13 @@ namespace zzaafunction
             // Get request body
             var googleHomeRequest = await req.Content.ReadAsAsync<GoogleHomeRequest>();
 
-            log.Info($"");
 
             var googleHomeParameters = googleHomeRequest.Result.Parameters;
+
+            log.Info($"Color : {googleHomeParameters.color}");
+            log.Info($"Number : {googleHomeParameters.number}");
+
+            string message = $"Your funny name is {googleHomeParameters.color} {googleHomeParameters.number}";
 
             var response = new Response();
             //if (!string.IsNullOrEmpty(googleHomeParameters.number) && !string.IsNullOrEmpty(googleHomeParameters.color))
@@ -44,8 +48,8 @@ namespace zzaafunction
 
 
             return req.CreateResponse(HttpStatusCode.OK, new {
-                speech = "Hello World",  // ASCII characters only
-                displayText = "Hello World"
+                speech = message,  // ASCII characters only
+                displayText = message
             });
         }
     }
@@ -73,3 +77,24 @@ namespace zzaafunction
         public string Source { get; set; }
     }
 }
+
+
+//{
+//  "speech": "...",  // ASCII characters only
+//  "displayText": "...",
+//  "data": {
+//    "google": {
+//      "expect_user_response": true,
+//      "is_ssml": true,
+//      "permissions_request": {
+//        "opt_context": "...",
+//        "permissions": [
+//          "NAME",
+//          "DEVICE_COARSE_LOCATION",
+//          "DEVICE_PRECISE_LOCATION"
+//        ]
+//      }
+//    }
+//  },
+//  "contextOut": [...],
+//}
