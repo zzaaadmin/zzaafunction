@@ -15,6 +15,7 @@ namespace zzaafunction
         {
             log.Info("C# HTTP trigger function processed a request.");
 
+
             // parse query parameter
             //string name = req.GetQueryNameValuePairs()
             //    .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
@@ -26,14 +27,19 @@ namespace zzaafunction
             var googleHomeParameters = googleHomeRequest.Result.Parameters;
 
             var response = new Response();
-            if (!string.IsNullOrEmpty(googleHomeParameters.number) && !string.IsNullOrEmpty(googleHomeParameters.color))
-            {
-                var now = System.DateTime.Now.ToLocalTime();
-                
-                response.DisplayText = $"{googleHomeParameters.color} won a game of {googleHomeParameters.number}";
+            //if (!string.IsNullOrEmpty(googleHomeParameters.number) && !string.IsNullOrEmpty(googleHomeParameters.color))
+            //{
+            //    var now = System.DateTime.Now.ToLocalTime();
+
+            //    response.DisplayText = $"{googleHomeParameters.color} won a game of {googleHomeParameters.number}";
+            //    response.Source = "webhook";
+            //    response.Speech = $"{googleHomeParameters.color} won a game of {googleHomeParameters.number}";
+            //}
+
+                response.DisplayText = $"Hello world!!!!";
                 response.Source = "webhook";
-                response.Speech = $"{googleHomeParameters.color} won a game of {googleHomeParameters.number}";
-            }
+                response.Speech = $"Hello world!!!!";
+
 
             return req.CreateResponse(HttpStatusCode.OK, response);
         }
