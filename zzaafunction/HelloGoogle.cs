@@ -32,7 +32,7 @@ namespace zzaafunction
 
             string message = $"Your funny name is {googleHomeParameters.color} {googleHomeParameters.number}";
 
-            var response = new Response();
+            //var response = new Response();
             //if (!string.IsNullOrEmpty(googleHomeParameters.number) && !string.IsNullOrEmpty(googleHomeParameters.color))
             //{
             //    var now = System.DateTime.Now.ToLocalTime();
@@ -42,9 +42,9 @@ namespace zzaafunction
             //    response.Speech = $"{googleHomeParameters.color} won a game of {googleHomeParameters.number}";
             //}
 
-                response.DisplayText = $"Hello world!!!!";
-                response.Source = "webhook";
-                response.Speech = $"Hello world!!!!";
+                //response.DisplayText = $"Hello world!!!!";
+                //response.Source = "webhook";
+                //response.Speech = $"Hello world!!!!";
 
 
             return req.CreateResponse(HttpStatusCode.OK, new {
