@@ -23,7 +23,8 @@ namespace zzaafunction
 
             // Get request body
             var googleHomeRequest = await req.Content.ReadAsAsync<GoogleHomeRequest>();
-
+            dynamic data = await req.Content.ReadAsAsync<object>();
+            log.Info((string)data);
 
             var googleHomeParameters = googleHomeRequest.Result.Parameters;
 
