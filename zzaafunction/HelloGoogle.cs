@@ -30,7 +30,7 @@ namespace zzaafunction
 
             //log.Info($"WebHook was triggered! Comment: {data.ToString()}");
 
-            log.Info($"source : {data.source.ToString()}");
+            //log.Info($"source : {data.source.ToString()}");
             log.Info($"Number : {data.originalRequest.source.ToString()}");
 
             var googleHomeParameters = googleHomeRequest.Result.Parameters;
