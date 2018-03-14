@@ -28,7 +28,10 @@ namespace zzaafunction
             string jsonContent = await req.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject(jsonContent);
 
-            log.Info($"WebHook was triggered! Comment: {data.ToString()}");
+            //log.Info($"WebHook was triggered! Comment: {data.ToString()}");
+
+            log.Info($"source : {data.source.ToString()}");
+            log.Info($"Number : {data.originalRequest.source.ToString()}");
 
             var googleHomeParameters = googleHomeRequest.Result.Parameters;
 
