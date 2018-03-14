@@ -15,74 +15,34 @@ namespace zzaafunction
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
-
-
-            // parse query parameter
-            //string name = req.GetQueryNameValuePairs()
-            //    .FirstOrDefault(q => string.Compare(q.Key, "name", true) == 0)
-            //    .Value;
-
-            // Get request body
-            //var googleHomeRequest = await req.Content.ReadAsAsync<GoogleHomeRequest>();
-
+            
             string jsonContent = await req.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject(jsonContent);
-
-            //log.Info($"WebHook was triggered! Comment: {data.ToString()}");
-
-            //log.Info($"source : {data.source.ToString()}");
-            //log.Info($"Number : {data.originalRequest.source.ToString()}");
-
-            //var googleHomeParameters = googleHomeRequest.Result.Parameters;
-
+            
             log.Info($"Color : {data.result.parameters.color}");
             log.Info($"Number : {data.result.parameters.number}");
+            log.Info($"intentName : {data.result.intentName}");
 
-            string message = $"Your funny name is {data.result.parameters.color} {data.result.parameters.number}";
+            string intentName = data.result.intentName;
+            string color = data.result.parameters.color;
+            string number = data.result.parameters.number;
 
-            //var response = new Response();
-            //if (!string.IsNullOrEmpty(googleHomeParameters.number) && !string.IsNullOrEmpty(googleHomeParameters.color))
-            //{
-            //    var now = System.DateTime.Now.ToLocalTime();
+            string message = "";
 
-            //    response.DisplayText = $"{googleHomeParameters.color} won a game of {googleHomeParameters.number}";
-            //    response.Source = "webhook";
-            //    response.Speech = $"{googleHomeParameters.color} won a game of {googleHomeParameters.number}";
-            //}
-
-                //response.DisplayText = $"Hello world!!!!";
-                //response.Source = "webhook";
-                //response.Speech = $"Hello world!!!!";
-
-
+            if(intentName == "make_name")
+            {
+                message = $"Your funny name is {color} {number}.";
+            }
+            else
+            {
+                message = $"The intent {intentName} is not configured.";
+            }
+            
             return req.CreateResponse(HttpStatusCode.OK, new {
                 speech = message,  // ASCII characters only
                 displayText = message
             });
         }
-    }
-
-    public class GoogleHomeRequest
-    {
-        public GoogleHomeResult Result { get; set; }
-    }
-
-    public class GoogleHomeResult
-    {
-        public GoogleHomeParameters Parameters { get; set; }
-    }
-
-    public class GoogleHomeParameters
-    {
-        public string number { get; set; }
-        public string color { get; set; }
-    }
-
-    public class Response
-    {
-        public string Speech { get; set; }
-        public string DisplayText { get; set; }
-        public string Source { get; set; }
     }
 }
 
