@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
+using Newtonsoft.Json;
 
 namespace zzaafunction
 {
@@ -23,8 +24,11 @@ namespace zzaafunction
 
             // Get request body
             var googleHomeRequest = await req.Content.ReadAsAsync<GoogleHomeRequest>();
-            dynamic data = await req.Content.ReadAsAsync<object>();
-            log.Info((string)data);
+
+            string jsonContent = await req.Content.ReadAsStringAsync();
+            dynamic data = JsonConvert.DeserializeObject(jsonContent);
+
+            log.Info($"WebHook was triggered! Comment: {data.comment.body}");
 
             var googleHomeParameters = googleHomeRequest.Result.Parameters;
 
