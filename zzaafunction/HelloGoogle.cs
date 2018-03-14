@@ -23,7 +23,7 @@ namespace zzaafunction
             log.Info($"Number : {data.result.parameters.number}");
             log.Info($"intentName : {data.result.intentName}");
 
-            string intentName = data.result.intentName;
+            string intentName = data.result.metadata.intentName;
             string color = data.result.parameters.color;
             string number = data.result.parameters.number;
 
