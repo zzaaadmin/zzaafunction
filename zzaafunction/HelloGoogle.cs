@@ -23,7 +23,7 @@ namespace zzaafunction
             //    .Value;
 
             // Get request body
-            var googleHomeRequest = await req.Content.ReadAsAsync<GoogleHomeRequest>();
+            //var googleHomeRequest = await req.Content.ReadAsAsync<GoogleHomeRequest>();
 
             string jsonContent = await req.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject(jsonContent);
@@ -31,14 +31,14 @@ namespace zzaafunction
             //log.Info($"WebHook was triggered! Comment: {data.ToString()}");
 
             //log.Info($"source : {data.source.ToString()}");
-            log.Info($"Number : {data.originalRequest.source.ToString()}");
+            //log.Info($"Number : {data.originalRequest.source.ToString()}");
 
-            var googleHomeParameters = googleHomeRequest.Result.Parameters;
+            //var googleHomeParameters = googleHomeRequest.Result.Parameters;
 
-            log.Info($"Color : {googleHomeParameters.color}");
-            log.Info($"Number : {googleHomeParameters.number}");
+            log.Info($"Color : {data.result.parameters.color}");
+            log.Info($"Number : {data.result.parameters.number}");
 
-            string message = $"Your funny name is {googleHomeParameters.color} {googleHomeParameters.number}";
+            string message = $"Your funny name is {data.result.parameters.color} {data.result.parameters.number}";
 
             //var response = new Response();
             //if (!string.IsNullOrEmpty(googleHomeParameters.number) && !string.IsNullOrEmpty(googleHomeParameters.color))
