@@ -92,11 +92,11 @@ namespace WhiteCase.OpenInformation.Demo
 
             if (result == true)
             {
-                output = $"White & Case works in the industry {industry}.";
+                output = $"White & Case works in the {industry} industry.";
             }
             else
             {
-                output = $"White & Case does not work in the industry {industry}.";
+                output = $"White & Case does not work in the {industry} industry.";
             }
 
             return output;
