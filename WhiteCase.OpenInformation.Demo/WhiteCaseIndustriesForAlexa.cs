@@ -17,7 +17,7 @@ namespace WhiteCase.OpenInformation.Demo
         [FunctionName("WhiteCaseIndustriesForAlexa")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
-            log.Info("ZZZ C# HTTP trigger function processed a request. Modified. Modified.");
+            log.Info("ZZZ C# HTTP trigger function processed a request. Modified. Modified.  ");
 
             //Get Request Body
             dynamic data = await req.Content.ReadAsAsync<object>();
