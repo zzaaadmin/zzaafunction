@@ -26,7 +26,9 @@ namespace WhiteCase.OpenInformation.Demo
             log.Info($"Request Type = {data.request.type}");
 
             string message = "";
-            HttpResponseMessage response = GenerateResponse(req, DEFAULT_RESPONSE, SKILL_NAME);
+            string requestType = data.request.type;
+
+            HttpResponseMessage response = GenerateResponse(req, requestType, SKILL_NAME);
 
             if (data.request.type == "IntentRequest")
             {
