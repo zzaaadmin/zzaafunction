@@ -50,7 +50,7 @@ namespace WhiteCase.OpenInformation.Demo
                         string character = (string)data.request.intent.slots["character"].value;
                         log.Info($"Starting Character = {character}");
 
-                    //    message = PrepareListIntentResponse(character);
+                        message = PrepareListIntentResponse(character);
                         response = GenerateResponse(req, message, SKILL_NAME);
                         break;
                     default:

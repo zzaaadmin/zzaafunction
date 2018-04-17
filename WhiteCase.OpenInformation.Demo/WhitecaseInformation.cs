@@ -18,6 +18,8 @@ namespace WhiteCase.OpenInformation.Demo
         public static List<string> ListIndustry(string startingCharacter)
         {
             List<string> output = new List<string>();
+            output.Add("Alpha");
+            output.Add("Beta");
 
             return output;
         }
