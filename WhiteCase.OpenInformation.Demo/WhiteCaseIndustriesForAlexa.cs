@@ -28,7 +28,7 @@ namespace WhiteCase.OpenInformation.Demo
             string message = "";
             string requestType = data.request.type;
 
-            HttpResponseMessage response = GenerateResponse(req, requestType, SKILL_NAME);
+            HttpResponseMessage response = GenerateResponse(req, DEFAULT_RESPONSE, SKILL_NAME);
 
             if (data.request.type == "IntentRequest")
             {
@@ -47,10 +47,10 @@ namespace WhiteCase.OpenInformation.Demo
                         response = GenerateResponse(req, message, SKILL_NAME);
                         break;
                     case "ListIntent":
-                        string startingCharacter = (string)data.request.intent.slots["startingCharacter"].value;
-                        log.Info($"Starting Character = {startingCharacter}");
+                        string character = (string)data.request.intent.slots["character"].value;
+                        log.Info($"Starting Character = {character}");
 
-                        message = PrepareListIntentResponse(startingCharacter);
+                        message = PrepareListIntentResponse(character);
                         response = GenerateResponse(req, message, SKILL_NAME);
                         break;
                     default:
@@ -104,11 +104,11 @@ namespace WhiteCase.OpenInformation.Demo
             return output;
         }
 
-        private static string PrepareListIntentResponse(string startingCharacter)
+        private static string PrepareListIntentResponse(string character)
         {
             string output = "";
 
-            var data = WhitecaseInformation.ListIndustry(startingCharacter);
+            var data = WhitecaseInformation.ListIndustry(character);
 
             foreach(var item in data)
             {
