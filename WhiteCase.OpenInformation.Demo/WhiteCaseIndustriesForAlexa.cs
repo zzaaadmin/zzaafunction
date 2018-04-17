@@ -46,13 +46,13 @@ namespace WhiteCase.OpenInformation.Demo
                         message = PrepareFindIntentResponse(industry);
                         response = GenerateResponse(req, message, SKILL_NAME);
                         break;
-                    case "ListIntent":
-                        string character = (string)data.request.intent.slots["character"].value;
-                        log.Info($"Starting Character = {character}");
+                    //case "ListIntent":
+                    //    string character = (string)data.request.intent.slots["character"].value;
+                    //    log.Info($"Starting Character = {character}");
 
-                        message = PrepareListIntentResponse(character);
-                        response = GenerateResponse(req, message, SKILL_NAME);
-                        break;
+                    //    message = PrepareListIntentResponse(character);
+                    //    response = GenerateResponse(req, message, SKILL_NAME);
+                    //    break;
                     default:
                         break;
                 }
