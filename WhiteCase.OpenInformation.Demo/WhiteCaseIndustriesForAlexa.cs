@@ -43,14 +43,14 @@ namespace WhiteCase.OpenInformation.Demo
                         string industry = (string)data.request.intent.slots["industry"].value;
                         log.Info($"Industry = {industry}");
 
-                        message = PrepareFindIntentResponse(industry);
+                        message = PrepareFindIntentResponse(log, industry);
                         response = GenerateResponse(req, message, SKILL_NAME);
                         break;
                     case "ListIntent":
                         string character = (string)data.request.intent.slots["character"].value;
                         log.Info($"Starting Character = {character}");
 
-                        message = PrepareListIntentResponse(character);
+                        message = PrepareListIntentResponse(log, character);
                         response = GenerateResponse(req, message, SKILL_NAME);
                         break;
                     default:
@@ -86,11 +86,11 @@ namespace WhiteCase.OpenInformation.Demo
             });
         }
 
-        private static string PrepareFindIntentResponse(string industry)
+        private static string PrepareFindIntentResponse(TraceWriter log, string industry)
         {
             string output = "";
 
-            bool result = WhitecaseInformation.FindIndustry(industry);
+            bool result = WhitecaseInformation.FindIndustry(log, industry);
 
             if (result == true)
             {
@@ -104,11 +104,11 @@ namespace WhiteCase.OpenInformation.Demo
             return output;
         }
 
-        private static string PrepareListIntentResponse(string character)
+        private static string PrepareListIntentResponse(TraceWriter log, string character)
         {
             string output = "";
 
-            var data = WhitecaseInformation.ListIndustry(character);
+            var data = WhitecaseInformation.ListIndustry(log,character);
 
             foreach(var item in data)
             {
