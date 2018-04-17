@@ -12,7 +12,7 @@ namespace WhiteCase.OpenInformation.Demo
     public static class WhiteCaseIndustriesForAlexa
     {
         public const string SKILL_NAME = "White & Case industries skill";
-        public const string DEFAULT_RESPONSE = "Welcome to White & Case Industries skill. It provides information about the industries where White & case practices.\n Ask list of industries for White & Case or does White & case works in Aviation?";
+        public const string DEFAULT_RESPONSE = "Hello. Welcome to White Case Industry skill. It provides information about the industries where White & case practices.\n Ask list of industries for White & Case starting with  A  \n or does White & case works in Aviation?";
 
         [FunctionName("WhiteCaseIndustriesForAlexa")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
