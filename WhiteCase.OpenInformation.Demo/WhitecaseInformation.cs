@@ -10,9 +10,9 @@ namespace WhiteCase.OpenInformation.Demo
 {
     public static class WhitecaseInformation
     {
-        public static bool FindIndustry(TraceWriter log,string industry)
+        public static List<string> FindIndustry(TraceWriter log,string industry)
         {
-            bool output = false;
+            List<string> output = new List<string>();
 
             try
             {
@@ -32,30 +32,29 @@ namespace WhiteCase.OpenInformation.Demo
                 {
                     connection.Open();
                     StringBuilder sb = new StringBuilder();
-                    sb.Append("SELECT T.Ind_Name ");
-                    sb.Append("FROM [dbo].[Industries] T ");
-                    sb.Append("Where T.Ind_Name Like '");
-                    sb.Append(industry);
-                    sb.Append("%';");
+                    //SELECT TOP 1 Name FROM DBO.Industries
+                    //INNER JOIN FREETEXTTABLE(Industries, Name, 'Sovereign') as ftt
+                    //ON ftt.[KEY] = Industries.id
+                    //ORDER BY ftt.RANK DESC
+                    sb.Append("SELECT TOP 1 Name FROM DBO.Industries ");
+                    sb.Append("INNER JOIN FREETEXTTABLE(Industries, Name, ' ");
+                    sb.Append("Sovereign ");
+                    sb.Append("') as ftt ");
+                    sb.Append("ON ftt.[KEY] = Industries.id ");
+                    sb.Append("ORDER BY ftt.RANK DESC ");
+
                     String sql = sb.ToString();
                     log.Info($"Query={sql}");
 
-
-                    var data = new List<string>();
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                data.Add(reader.GetString(0));
+                                output.Add(reader.GetString(0));
                             }
                         }
-                    }
-
-                    if (data.Count > 0)
-                    {
-                        output = true;
                     }
                 }
             }
@@ -100,8 +99,6 @@ namespace WhiteCase.OpenInformation.Demo
                     String sql = sb.ToString();
                     log.Info($"Query={sql}");
 
-
-                    output = new List<string>();
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())

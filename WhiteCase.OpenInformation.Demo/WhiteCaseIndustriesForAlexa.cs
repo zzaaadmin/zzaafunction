@@ -90,15 +90,15 @@ namespace WhiteCase.OpenInformation.Demo
         {
             string output = "";
 
-            bool result = WhitecaseInformation.FindIndustry(log, industry);
+            var data = WhitecaseInformation.FindIndustry(log, industry);
 
-            if (result == true)
+            if (data.Count == 0)
             {
-                output = $"White & Case works in the {industry} industry.";
+                output = $"White & Case does not work in the {industry} industry.";
             }
             else
             {
-                output = $"White & Case does not work in the {industry} industry.";
+                output = $"White & Case does not work in the {data.First()} industry.";
             }
 
             return output;
