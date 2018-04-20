@@ -98,7 +98,7 @@ namespace WhiteCase.OpenInformation.Demo
             }
             else
             {
-                output = $"White & Case does not work in the {data.First()} industry.";
+                output = $"White & Case works in the {data.First()} industry.";
             }
 
             return output;

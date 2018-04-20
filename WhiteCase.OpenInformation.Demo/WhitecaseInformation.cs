@@ -37,8 +37,8 @@ namespace WhiteCase.OpenInformation.Demo
                     //ON ftt.[KEY] = Industries.id
                     //ORDER BY ftt.RANK DESC
                     sb.Append("SELECT TOP 1 Name FROM DBO.Industries ");
-                    sb.Append("INNER JOIN FREETEXTTABLE(Industries, Name, ' ");
-                    sb.Append("Sovereign ");
+                    sb.Append("INNER JOIN FREETEXTTABLE(Industries, Name, '");
+                    sb.Append(industry);
                     sb.Append("') as ftt ");
                     sb.Append("ON ftt.[KEY] = Industries.id ");
                     sb.Append("ORDER BY ftt.RANK DESC ");
