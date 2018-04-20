@@ -12,7 +12,7 @@ namespace WhiteCase.OpenInformation.Demo
     public static class WhiteCaseIndustriesForAlexa
     {
         public const string SKILL_NAME = "White & Case industries skill";
-        public const string DEFAULT_RESPONSE = "Hello. Welcome to White Case Industry skill. It provides information about the industries where White & case practices.\n Ask list of industries for White & Case starting with  A  \n or does White & case works in Aviation?";
+        public const string DEFAULT_RESPONSE = "Welcome to White Case Industry skill. It provides information about the industries where White & case practices.\n Ask list of industries for White & Case starting with  A  \n or does White & case works in Aviation?";
 
         [FunctionName("WhiteCaseIndustriesForAlexa")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
@@ -110,15 +110,26 @@ namespace WhiteCase.OpenInformation.Demo
 
             var data = WhitecaseInformation.ListIndustry(log,character);
 
-            foreach(var item in data)
+            if(data.Count == 0)
             {
-                output = output + item + ", ";
+                output = "White & Case does not work in any industry starting with " + character + ".";
+            }
+            else
+            {
+                output = "White & Case works in following industries starting with " + character + ": \n";
+
+                foreach (var item in data)
+                {
+                    output = output + item + ", ";
+                }
+
+                if (output.EndsWith(", "))
+                {
+                    output = output.Substring(0, output.Length - 2);
+                }
             }
 
-            if(output.EndsWith(", "))
-            {
-                output = output.Substring(0, output.Length - 2);
-            }
+
 
             return output;
         }
