@@ -91,7 +91,7 @@ namespace WhiteCase.OpenInformation.Demo
                 {
                     connection.Open();
                     StringBuilder sb = new StringBuilder();
-                    sb.Append("SELECT T.Ind_Name ");
+                    sb.Append("SELECT T.Name ");
                     sb.Append("FROM [dbo].[Industries] T ");
                     sb.Append("Where T.Name Like '");
                     sb.Append(character);
@@ -201,7 +201,7 @@ namespace WhiteCase.OpenInformation.Demo
                 {
                     connection.Open();
                     StringBuilder sb = new StringBuilder();
-                    sb.Append("SELECT T.Ind_Name ");
+                    sb.Append("SELECT T.Name ");
                     sb.Append("FROM DBO.Practices T ");
                     sb.Append("Where T.Name Like '");
                     sb.Append(character);
