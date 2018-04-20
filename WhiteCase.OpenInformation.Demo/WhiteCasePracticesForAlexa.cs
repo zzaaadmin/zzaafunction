@@ -9,12 +9,12 @@ using Microsoft.Azure.WebJobs.Host;
 
 namespace WhiteCase.OpenInformation.Demo
 {
-    public static class WhiteCaseIndustriesForAlexa
+    public static class WhiteCasePracticesForAlexa
     {
-        public const string SKILL_NAME = "White & Case industries skill";
-        public const string DEFAULT_RESPONSE = "Welcome to White Case Industry skill. It provides information about the industries where White & case practices.\n Ask list industries for white and case starting with o  \n or does white and case work in aerospace?";
+        public const string SKILL_NAME = "White & Case practices skill";
+        public const string DEFAULT_RESPONSE = "Welcome to White Case Practice skill. It provides information about the practices for White & case.\n Ask list practices for white and case starting with o  \n or does white and case have aerospace practice?";
 
-        [FunctionName("WhiteCaseIndustriesForAlexa")]
+        [FunctionName("WhiteCasePracticesForAlexa")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             log.Info("ZZZ C# HTTP trigger function processed a request. Modified. Modified.  ");
@@ -40,10 +40,10 @@ namespace WhiteCase.OpenInformation.Demo
                 switch (intentName)
                 {
                     case "FindIntent":
-                        string industry = (string)data.request.intent.slots["industry"].value;
-                        log.Info($"Industry = {industry}");
+                        string practice = (string)data.request.intent.slots["practice"].value;
+                        log.Info($"Practice = {practice}");
 
-                        message = PrepareFindIntentResponse(log, industry);
+                        message = PrepareFindIntentResponse(log, practice);
                         response = GenerateResponse(req, message, SKILL_NAME);
                         break;
                     case "ListIntent":
@@ -86,19 +86,19 @@ namespace WhiteCase.OpenInformation.Demo
             });
         }
 
-        private static string PrepareFindIntentResponse(TraceWriter log, string industry)
+        private static string PrepareFindIntentResponse(TraceWriter log, string practice)
         {
             string output = "";
 
-            var data = WhitecaseInformation.FindIndustry(log, industry);
+            var data = WhitecaseInformation.FindPractice(log, practice);
 
             if (data.Count == 0)
             {
-                output = $"White & Case does not work in the {industry} industry.";
+                output = $"White & Case does not work in the {practice} practice.";
             }
             else
             {
-                output = $"White & Case works in the {data.First()} industry.";
+                output = $"White & Case works in the {data.First()} practice.";
             }
 
             return output;
@@ -108,15 +108,15 @@ namespace WhiteCase.OpenInformation.Demo
         {
             string output = "";
 
-            var data = WhitecaseInformation.ListIndustry(log,character);
+            var data = WhitecaseInformation.ListPractice(log,character);
 
             if(data.Count == 0)
             {
-                output = "White & Case does not work in any industry starting with " + character + ".";
+                output = "White & Case does not work in any practice starting with " + character + ".";
             }
             else
             {
-                output = "White & Case works in following industries starting with " + character + ": \n";
+                output = "White & Case works in following practices starting with " + character + ": \n";
 
                 foreach (var item in data)
                 {
