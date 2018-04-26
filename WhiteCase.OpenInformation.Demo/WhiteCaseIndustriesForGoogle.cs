@@ -24,30 +24,30 @@ namespace WhiteCase.OpenInformation.Demo
 
             log.Info($"Content = {data}");
 
-            string intentName = data.result.metadata.intentName;
+            //string intentName = data.result.metadata.intentName;
             string message = "";
             
             HttpResponseMessage response = GenerateResponse(req, DEFAULT_RESPONSE, SKILL_NAME);
 
-            switch (intentName)
-            {
-                case "FindIntent":
-                    string industry = (string)data.result.parameters.industry; //data.request.intent.slots["industry"].value;
-                    log.Info($"Industry = {industry}");
+            //switch (intentName)
+            //{
+            //    case "FindIntent":
+            //        string industry = (string)data.result.parameters.industry; //data.request.intent.slots["industry"].value;
+            //        log.Info($"Industry = {industry}");
 
-                    message = PrepareFindIntentResponse(log, industry);
-                    response = GenerateResponse(req, message, SKILL_NAME);
-                    break;
-                case "ListIntent":
-                    string character = (string)data.result.parameters.character; //data.request.intent.slots["character"].value;
-                    log.Info($"Starting Character = {character}");
+            //        message = PrepareFindIntentResponse(log, industry);
+            //        response = GenerateResponse(req, message, SKILL_NAME);
+            //        break;
+            //    case "ListIntent":
+            //        string character = (string)data.result.parameters.character; //data.request.intent.slots["character"].value;
+            //        log.Info($"Starting Character = {character}");
 
-                    message = PrepareListIntentResponse(log, character);
-                    response = GenerateResponse(req, message, SKILL_NAME);
-                    break;
-                default:
-                    break;
-            };
+            //        message = PrepareListIntentResponse(log, character);
+            //        response = GenerateResponse(req, message, SKILL_NAME);
+            //        break;
+            //    default:
+            //        break;
+            //};
 
             log.Info($"Response = {message}");
 
