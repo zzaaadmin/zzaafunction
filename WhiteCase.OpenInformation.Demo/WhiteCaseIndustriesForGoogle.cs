@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
-using Newtonsoft.Json;
 
 namespace WhiteCase.OpenInformation.Demo
 {
@@ -21,47 +20,38 @@ namespace WhiteCase.OpenInformation.Demo
             log.Info("ZZZ C# HTTP trigger function processed a request. Modified. Modified.  ");
 
             //Get Request Body
-            //dynamic data = await req.Content.ReadAsAsync<object>();
+            dynamic data = await req.Content.ReadAsAsync<object>();
 
-            //string jsonContent = await req.Content.ReadAsStringAsync();
-            //dynamic data = JsonConvert.DeserializeObject(jsonContent);
+            log.Info($"Content = {data}");
 
-            //log.Info($"Content = {data}");
-
-            //string intentName = data.result.metadata.intentName;
-            string message = "test";
+            string intentName = data.result.metadata.intentName;
+            string message = "";
             
             HttpResponseMessage response = GenerateResponse(req, DEFAULT_RESPONSE, SKILL_NAME);
 
-            //switch (intentName)
-            //{
-            //    case "FindIntent":
-            //        string industry = (string)data.result.parameters.industry; //data.request.intent.slots["industry"].value;
-            //        log.Info($"Industry = {industry}");
-
-            //        message = PrepareFindIntentResponse(log, industry);
-            //        response = GenerateResponse(req, message, SKILL_NAME);
-            //        break;
-            //    case "ListIntent":
-            //        string character = (string)data.result.parameters.character; //data.request.intent.slots["character"].value;
-            //        log.Info($"Starting Character = {character}");
-
-            //        message = PrepareListIntentResponse(log, character);
-            //        response = GenerateResponse(req, message, SKILL_NAME);
-            //        break;
-            //    default:
-            //        break;
-            //};
-
-            //log.Info($"Response = {message}");
-
-            //return response;
-
-            return req.CreateResponse(HttpStatusCode.OK, new
+            switch (intentName)
             {
-                speech = message,  // ASCII characters only
-                displayText = message
-            });
+                case "FindIntent":
+                    string industry = (string)data.result.parameters.industry; //data.request.intent.slots["industry"].value;
+                    log.Info($"Industry = {industry}");
+
+                    message = PrepareFindIntentResponse(log, industry);
+                    response = GenerateResponse(req, message, SKILL_NAME);
+                    break;
+                case "ListIntent":
+                    string character = (string)data.result.parameters.character; //data.request.intent.slots["character"].value;
+                    log.Info($"Starting Character = {character}");
+
+                    message = PrepareListIntentResponse(log, character);
+                    response = GenerateResponse(req, message, SKILL_NAME);
+                    break;
+                default:
+                    break;
+            };
+
+            log.Info($"Response = {message}");
+
+            return response;
         }
 
         private static HttpResponseMessage GenerateResponse(HttpRequestMessage request, string message, string skillName)
