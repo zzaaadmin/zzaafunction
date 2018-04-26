@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
+using Newtonsoft.Json;
 
 namespace WhiteCase.OpenInformation.Demo
 {
@@ -20,12 +21,15 @@ namespace WhiteCase.OpenInformation.Demo
             log.Info("ZZZ C# HTTP trigger function processed a request. Modified. Modified.  ");
 
             //Get Request Body
-            dynamic data = await req.Content.ReadAsAsync<object>();
+            //dynamic data = await req.Content.ReadAsAsync<object>();
 
-            log.Info($"Content = {data}");
+            //string jsonContent = await req.Content.ReadAsStringAsync();
+            //dynamic data = JsonConvert.DeserializeObject(jsonContent);
+
+            //log.Info($"Content = {data}");
 
             //string intentName = data.result.metadata.intentName;
-            string message = "";
+            string message = "test";
             
             HttpResponseMessage response = GenerateResponse(req, DEFAULT_RESPONSE, SKILL_NAME);
 
@@ -49,9 +53,15 @@ namespace WhiteCase.OpenInformation.Demo
             //        break;
             //};
 
-            log.Info($"Response = {message}");
+            //log.Info($"Response = {message}");
 
-            return response;
+            //return response;
+
+            return req.CreateResponse(HttpStatusCode.OK, new
+            {
+                speech = message,  // ASCII characters only
+                displayText = message
+            });
         }
 
         private static HttpResponseMessage GenerateResponse(HttpRequestMessage request, string message, string skillName)
