@@ -25,6 +25,8 @@ namespace WhiteCase.OpenInformation.Demo
             log.Info($"Content = {data}");
             
             string intentName = data.result.metadata.intentName;
+            log.Info($"intentName = {intentName}");
+
             string message = "";
 
             HttpResponseMessage response = GenerateResponse(req, DEFAULT_RESPONSE, SKILL_NAME);
